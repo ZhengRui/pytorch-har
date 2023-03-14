@@ -35,7 +35,7 @@ class LSTMCNN(nn.Module):
     def __init__(self, num_classes=6):
         super().__init__()
 
-        self.lstm = nn.LSTM(3, 32, 2)
+        self.lstm = nn.LSTM(3, 32, 1)
 
         self.cnn = nn.Sequential(
             nn.Conv2d(1, 64, (1, 5), stride=(1, 2)),
