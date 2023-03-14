@@ -30,7 +30,6 @@ class HARDataset(Dataset):
         return len(self.segments)
 
 
-# can achieve 92% accuracy
 class LSTMCNN(nn.Module):
     def __init__(self, num_classes=6):
         super().__init__()
@@ -38,10 +37,12 @@ class LSTMCNN(nn.Module):
         self.lstm = nn.LSTM(3, 32, 1)
 
         self.cnn = nn.Sequential(
-            nn.Conv2d(1, 64, (1, 5), stride=(1, 2)),
+            nn.Conv2d(1, 32, (1, 3), stride=(1, 2)),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, (1, 3), stride=(1, 2)),
             nn.BatchNorm2d(64),
             nn.ReLU(),
-            nn.MaxPool2d((1, 2), stride=(1, 2)),
             nn.Conv2d(64, 128, (1, 3), stride=(1, 1)),
             nn.BatchNorm2d(128),
             nn.ReLU(),
