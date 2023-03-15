@@ -1,2 +1,5 @@
 *.swp
-datasets
+datasets/UCI_HAR/*
+!datasets/UCI_HAR/segment.py
+datasets/WISDM_ar_v1.1/*
+!datasets/WISDM_ar_v1.1/segment.py
