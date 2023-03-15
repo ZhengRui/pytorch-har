@@ -11,10 +11,10 @@ from torch.utils.data import DataLoader, Dataset
 torch.manual_seed(17)
 
 
-with open('./datasets/WISDM_ar_v1.1/train.pkl', 'rb') as f:
+with open('./datasets/UCI_HAR/train_raw.pkl', 'rb') as f:
     segments_train, fragments_train = pkl.load(f).values()
 
-with open('./datasets/WISDM_ar_v1.1/test.pkl', 'rb') as f:
+with open('./datasets/UCI_HAR/test_raw.pkl', 'rb') as f:
     segments_test, fragments_test = pkl.load(f).values()
 
 
@@ -34,7 +34,7 @@ class LSTMCNN(nn.Module):
     def __init__(self, num_classes=6):
         super().__init__()
 
-        self.lstm = nn.LSTM(3, 32, 1)
+        self.lstm = nn.LSTM(9, 32, 1)
 
         self.cnn = nn.Sequential(
             nn.Conv2d(1, 64, (1, 5), stride=(1, 2)),
@@ -286,6 +286,8 @@ if __name__ == '__main__':
             'TRAIN: without testing first, directly start/continue training. default "TESTTRAIN"'
         ),
     )
+
+    parser.add_argument('--cpu_mode', dest='gpu_mode', action='store_false', help='GPU mode.')
 
     args = vars(parser.parse_args())
 
